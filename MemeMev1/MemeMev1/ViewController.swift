@@ -23,6 +23,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var image: UIImage!
     
+    let memeTextAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.strokeColor: UIColor.black ,
+        NSAttributedString.Key.foregroundColor: UIColor.white,
+        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.strokeWidth: Float(-4),
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,24 +37,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.topText.delegate = self
         self.bottomText.delegate = self
         
-        let memeTextAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.strokeColor: UIColor.black ,
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSAttributedString.Key.strokeWidth: Float(-4),
-        ]
-        
-        topText.defaultTextAttributes = memeTextAttributes
-        bottomText.defaultTextAttributes = memeTextAttributes
-        
-        topText.textAlignment = NSTextAlignment.center
-        bottomText.textAlignment = NSTextAlignment.center
-        
-        topText.text = "TOP"
-        bottomText.text = "BOTTOM"
+        initializeText(self.topText, "TOP")
+        initializeText(self.bottomText, "BOTTOM")
         
         subscribeToKeyboardNotifications()
         
+    }
+    
+    func initializeText(_ textField: UITextField, _ text: String){
+        textField.defaultTextAttributes = self.memeTextAttributes
+        textField.textAlignment = NSTextAlignment.center
+        textField.text = text
     }
     
     
@@ -63,16 +63,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController, animated: true)
+        pickAnImage(self, .photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        pickAnImage(self, .camera)
+    }
+    
+    func pickAnImage(_ delegate: UIImagePickerControllerDelegate & UINavigationControllerDelegate, _ sourceType: UIImagePickerController.SourceType){
         let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .camera
+        pickerController.delegate = delegate
+        pickerController.sourceType = sourceType
         present(pickerController, animated: true)
     }
     
