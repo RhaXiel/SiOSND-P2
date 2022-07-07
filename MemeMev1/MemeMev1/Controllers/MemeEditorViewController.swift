@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var imagePickerView: UIImageView!
     
@@ -49,7 +49,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.textAlignment = NSTextAlignment.center
         textField.text = text
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -115,8 +114,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:))    , name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow(_:))    , name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -133,7 +132,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save(memedImage : UIImage) {
         // Create the meme
-        _ = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!, originalImage: self.imagePickerView.image!, memedImage: generateMemedImage())
+        let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!, originalImage: self.imagePickerView.image!, memedImage: generateMemedImage())
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
@@ -161,6 +163,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true)
     }
     
 }
