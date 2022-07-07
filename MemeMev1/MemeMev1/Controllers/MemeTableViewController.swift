@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MemeTableViewController: UITableViewController, UIViewControllerTransitioningDelegate {
+class MemeTableViewController: UITableViewController {
     
     
     var memes: [Meme]!{
@@ -16,18 +16,7 @@ class MemeTableViewController: UITableViewController, UIViewControllerTransition
         let appDelegate = object as! AppDelegate
         return appDelegate.memes
     }
-    
-    ///Optimized
-    //var memes: [Meme] {
-    //       return (UIApplication.shared.delegate as! AppDelegate).memes
-    //   }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //tableView.reloadData()
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
@@ -48,29 +37,9 @@ class MemeTableViewController: UITableViewController, UIViewControllerTransition
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
-        //detailViewController.meme = memes[(indexPath as NSIndexPath).row]
-        detailViewController.topText.text = self.memes[(indexPath as NSIndexPath).row].topText
-        detailViewController.bottomText.text = self.memes[(indexPath as NSIndexPath).row].bottomText
-        detailViewController.image = self.memes[(indexPath as NSIndexPath).row].originalImage
+        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        detailViewController.meme = self.memes[(indexPath as NSIndexPath).row]
         navigationController!.pushViewController(detailViewController, animated: true)
     }
-    
-    // MARK: Push details VC
-    /*
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -51,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3054C46B2876D1B8006FFCCF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				30C33D2A284DEA70004CE857 /* Meme.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		30C33D0A284D6C4B004CE857 = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +86,7 @@
 				30C33D1F284D6C4D004CE857 /* Assets.xcassets */,
 				30C33D21284D6C4D004CE857 /* LaunchScreen.storyboard */,
 				30C33D24284D6C4D004CE857 /* Info.plist */,
-				30C33D2A284DEA70004CE857 /* Meme.swift */,
+				3054C46B2876D1B8006FFCCF /* Models */,
 			);
 			path = MemeMev1;
 			sourceTree = "<group>";

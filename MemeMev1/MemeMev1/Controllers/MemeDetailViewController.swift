@@ -14,13 +14,8 @@ class MemeDetailViewController: UIViewController {
         @IBOutlet weak var memeImage: UIImageView!
         @IBOutlet weak var editButton: UINavigationBar!
         
-        override func viewDidLoad() {
-            self.tabBarController?.tabBar.isHidden = false
-        }
-        
-        
         override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)  // added per instructor
+            super.viewWillAppear(animated)
             memeImage.image = meme.memedImage
         }
         
@@ -30,7 +25,7 @@ class MemeDetailViewController: UIViewController {
         }
         
         override var prefersStatusBarHidden : Bool {
-            return true     // status bar should be hidden
+            return true
         }
     
 }
