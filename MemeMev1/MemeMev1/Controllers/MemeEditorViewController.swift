@@ -50,7 +50,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         textField.text = text
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
@@ -164,6 +163,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 self.dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true)
     }
     
 }
